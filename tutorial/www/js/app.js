@@ -222,25 +222,55 @@ myApp.controller('LoginCtrl', function($scope, $http, $state, $sessionStorage, $
   }
 });
 
-myApp.controller('RegistreseCtrl', function($scope, $http, $state, $sessionStorage, $ionicPopup, $timeout, $templateCache){
-  
-  $scope.captura = "img/ionic.png";
+myApp.controller('RegistreseCtrl', function($scope, $http, $state, $sessionStorage, $ionicPopup, $timeout, $rootScope, $templateCache, $httpParamSerializerJQLike){
+    $scope.GuardarRegistro = function(){
+      var url = "http://privadas.esy.es/index.php?r=usuarios/create";
+      $http({
+      method: "POST", 
+      url: url,
+      cache: $templateCache,
+      headers:{ 'Content-Type': 'application/x-www-form-urlencoded'
+              },
+      data: $httpParamSerializerJQLike({
+            "iIdTipoUsuario": this.iIdTipoUsuario,
+            "cUsuario": this.cUsuario, 
+            "cContrasenia": this.cContrasenia,
+            "dtAlta": "2016/03/03",
+            "lActivo": 1,
+            "cNombre": this.cNombre,
+            "cApellidoPaterno": this.cApellidoPaterno,
+            "cApellidoMaterno": this.cApellidoMaterno,
+            "dtFechaNacimiento": this.dtFechaNacimiento
+          })
+      })
+      .then(
+        function(response) {
+          alert(response.data);
+        }, 
+        function(response) {
+          $scope.data = response.data || "Request failed";
+          $scope.status = response.status;
+          alert("error");
+          console.log(response.data);
+          alert(response.data);
+      });
+  }
 
-  var url = "http://privadas.esy.es/index.php?r=tipousuario/ListaTipoUsuario";
+  $scope.captura = "img/ionic.png";
+  url = "http://privadas.esy.es/index.php?r=tipousuario/ListaTipoUsuario";
   $http({
     method: "GET", 
     url: url,
     cache: $templateCache
-    }).
-    then(
+    })
+    .then(
       function(response) {
         $scope.tiposUsuarios = response.data;
-        $scope.$digest();
-        alert(response.data);
       }, 
       function(response) {
         $scope.data = response.data || "Request failed";
         $scope.status = response.status;
+        console.log(response.data);
     });
 
   // Métodos

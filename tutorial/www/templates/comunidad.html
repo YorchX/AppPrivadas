@@ -1,0 +1,14 @@
+<ion-view view-title="Mi comunidad">
+	<ion-content class="has-header padding has-footer" scroll="true" has-bouncing="true">
+	    <style>
+	    </style>
+	    <img src="{{ captura }}" class="full-image">
+	    <ion-list>
+		    <ion-item class="item-avatar item-icon-right" ng-repeat="residente in residentes">
+		        <img src="img/{{ residente.foto }}.jpg" />
+		        <h2>{{ residente.nombre }} {{ residente.apellido }}</h2>
+		        <button class="button button-icon icon ion-ios-camera" ng-click="TomarFoto()"></button>
+		    </ion-item>
+	    </ion-list>
+    </ion-content>
+</ion-view>

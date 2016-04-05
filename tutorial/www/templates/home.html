@@ -1,0 +1,27 @@
+<ion-view view-title="Mi residencial">
+	<ion-content class="has-header padding has-footer" scroll="true" has-bouncing="true">
+	    <style>
+			.tituloCarta{
+				background: #fbe9e7;
+			}
+			.card .icon{
+				color: #bf360c;
+			}
+			.tituloCarta img{
+				max-height: 20px;
+				float: right;
+			}
+	    </style>
+	    <div class="card" ng-repeat="visitante in visitantes">
+	      <div class="tituloCarta item item-divider">
+	        <h2 class="title">Visita a: {{ visitante.huesped }} <img src="img/ionic.png" alt=""></h2>
+	      </div>
+	      <div class="item item-avatar-left item-text-grap">
+	        <img src="img/{{ visitante.foto }}.jpg">
+	        <h2>{{ visitante.nombre }}</h2>
+	        {{ visitante.coche }}
+	        <span class="item-note">{{ visitante.aceptado }}</span>
+	      </div>
+	    </div>
+    </ion-content>
+</ion-view>

@@ -171,17 +171,6 @@ myApp.controller('InfoCtrl', function($scope, $http, $state){
 
 myApp.controller('LoginCtrl', function($scope, $http, $state, $sessionStorage, $ionicPopup, $timeout, $rootScope, $templateCache, $httpParamSerializerJQLike){
   $scope.IniciarSesion = function(){
-    /*var url = "http://privadas.esy.es/index.php?r=usuarios/IniciaSesion";
-    $http({
-    method: "POST", 
-    url: url,
-    cache: $templateCache,
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    data: $httpParamSerializerJQLike({
-          "contrasenia": this.password, 
-          "usuario": this.usuario
-        })
-    }).*/
     var url = "http://privadas.esy.es/index.php?r=usuarios/IniciaSesion&usuario="+this.usuario+"&contrasenia="+this.password;
     $http({
     method: "GET", 
@@ -223,24 +212,25 @@ myApp.controller('LoginCtrl', function($scope, $http, $state, $sessionStorage, $
 });
 
 myApp.controller('RegistreseCtrl', function($scope, $http, $state, $sessionStorage, $ionicPopup, $timeout, $rootScope, $templateCache, $httpParamSerializerJQLike){
+    $scope.formData = {};
+    
     $scope.GuardarRegistro = function(){
       var url = "http://privadas.esy.es/index.php?r=usuarios/create";
       $http({
       method: "POST", 
       url: url,
       cache: $templateCache,
-      headers:{ 'Content-Type': 'application/x-www-form-urlencoded'
-              },
+      headers:{'Content-Type': 'application/x-www-form-urlencoded'},
       data: $httpParamSerializerJQLike({
-            "iIdTipoUsuario": this.iIdTipoUsuario,
-            "cUsuario": this.cUsuario, 
-            "cContrasenia": this.cContrasenia,
+            "dtFechaNacimiento": $scope.formData.dtFechaNacimiento,
+            "iIdTipoUsuario": $scope.formData.iIdTipoUsuario,
+            "cUsuario": $scope.formData.cUsuario, 
+            "cContrasenia": $scope.formData.cContrasenia,
             "dtAlta": "2016/03/03",
             "lActivo": 1,
-            "cNombre": this.cNombre,
-            "cApellidoPaterno": this.cApellidoPaterno,
-            "cApellidoMaterno": this.cApellidoMaterno,
-            "dtFechaNacimiento": this.dtFechaNacimiento
+            "cNombre": $scope.formData.cNombre,
+            "cApellidoPaterno": $scope.formData.cApellidoPaterno,
+            "cApellidoMaterno": $scope.formData.cApellidoMaterno
           })
       })
       .then(
@@ -283,7 +273,7 @@ myApp.controller('RegistreseCtrl', function($scope, $http, $state, $sessionStora
             // do something interesting with the file
         } 
         $scope.captura = path;
-        $scope.$digest();
+        //$scope.$digest();
     };
     
     // capture error callback
